@@ -1,0 +1,85 @@
+// Breakpoints
+$breakpoints: (
+	'laptop': 1024px,
+  'laptop-lg': 1920px
+);
+
+// Media queries for responsive design.
+@mixin respond-to($breakpoint) {
+
+  // Retrieves the value from the key
+  $value: map-get($breakpoints, $breakpoint);
+
+  // if the key exists in the map
+  @if $value != null {
+
+    // prints a media query based on the value
+    @media (min-width: $value) {
+      @content;
+    }
+  }
+
+  // if the key doesn't exist in the map
+  @else {
+    @warn "Unfortunately, no value could be retrieved from `#{$breakpoint}`. "
+        + "Please make sure it is defined in `$breakpoints` map.";
+  }
+}
+
+// Fluid Type Mixin: https://css-tricks.com/snippets/css/fluid-typography
+@function strip-unit($value) {
+  @return $value / ($value * 0 + 1);
+}
+
+@mixin fluid-type($min-vw, $max-vw, $min-font-size, $max-font-size) {
+  $u1: unit($min-vw);
+  $u2: unit($max-vw);
+  $u3: unit($min-font-size);
+  $u4: unit($max-font-size);
+
+  @if $u1 == $u2 and $u1 == $u3 and $u1 == $u4 {
+    & {
+      font-size: $min-font-size;
+      @media screen and (min-width: $min-vw) {
+        font-size: calc(#{$min-font-size} + #{strip-unit($max-font-size - $min-font-size)} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}));
+      }
+      @media screen and (min-width: $max-vw) {
+        font-size: $max-font-size;
+      }
+    }
+  }
+}
+
+// Keyframe Browser Prefix Mixin
+@mixin keyframes-compatible($name) {
+  @-webkit-keyframes #{$name} {
+    @content;
+  }
+
+  @-moz-keyframes #{$name} {
+    @content;
+  }
+
+  @-o-keyframes #{$name} {
+    @content;
+  }
+
+  @keyframes #{$name} {
+    @content;
+  }
+}
+
+// Background responsive
+@mixin bg-responsive($name, $format) {
+
+  // iterate through each breakpoint
+  @each $breakpoint in map-keys($breakpoints) {
+
+    background-image: url('../img/#{$name}-mobile.#{$format}');
+
+    // generate media query
+    @include respond-to($breakpoint) {
+      background-image: url('../img/#{$name}-#{$breakpoint}.#{$format}');
+    }
+  }
+}
