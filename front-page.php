@@ -64,56 +64,41 @@
         </section>
         <section class="img-fill">
           <div class="card-cont">
-            <div class="overflow-container">
-              <div class="card-wrapper card1">
-                <div class="card-container new-card">
-                  <div class="card-head">
-                    <h2>Sandcrawler Collectibles</h2>
-                  </div>
-                  <div class="card-bod">
-                    <p>After touching down on Tatooine, it won't be long before you come across a Sandcrawler, crammed full
-                      of scavenged Star Wars collectibles. Take a look inside to gain insights into collecting from vintage
-                      to modern lines, strategies and reviews.</p>
-                  </div>
-                  <div class="card-foot">
-                    <a class="tt-btn" href="#">Coming Soon</a>
-                  </div>
-                </div>
-              </div>
+          <?php
+
+// check if the repeater field has rows of data
+if (have_rows('card')):
+
+    // loop through the rows of data
+    while (have_rows('card')) : the_row(); ?>
+
+      
+        <div class="overflow-container">
+        <div class="card-wrapper" style="background-image: url(<?php the_sub_field('card_background'); ?>)">
+          <div class="card-container new-card">
+            <div class="card-head">
+              <h2><?php the_sub_field('card_title'); ?></h2>
             </div>
-            <div class="overflow-container">
-              <div class="card-wrapper card2">
-                <div class="card-container new-card">
-                  <div class="card-head">
-                    <h2>Chalmun's Cantina News</h2>
-                  </div>
-                  <div class="card-bod">
-                    <p>Chalmun's Cantina in Mos Eisley is the place to head to if you need to get off this rock, or simply catch
-                      up on news from other space travellers. Head inside to find out what's going on around the Star Wars
-                      galaxy.</p>
-                  </div>
-                  <div class="card-foot">
-                    <a class="tt-btn" href="#">Coming Soon</a>
-                  </div>
-                </div>
-              </div>
+            <div class="card-bod">
+              <p><?php the_sub_field('card_body'); ?></p>
             </div>
-            <div class="overflow-container">
-              <div class="card-wrapper card3">
-                <div class="card-container new-card">
-                  <div class="card-head">
-                    <h2>Sarlacc Reviews</h2>
-                  </div>
-                  <div class="card-bod">
-                    <p>Just like the Sarlacc in The Great Pit of Carkoon, we digest just about everything Star Wars. From movies
-                      to tv shows, from games to books, all of our opinions can be found in here.</p>
-                  </div>
-                  <div class="card-foot">
-                    <a class="tt-btn" href="#">Coming Soon</a>
-                  </div>
-                </div>
-              </div>
+            <div class="card-foot">
+              <a class="tt-btn" href="<?php the_sub_field('card_button_link'); ?>"><?php the_sub_field('card_button_text'); ?></a>
             </div>
+          </div>
+        </div>
+      </div>
+
+    <?php endwhile;
+
+else :
+
+    // no rows found
+
+endif;
+
+?>
+
           </div>
 
           <!-- Arrows -->
@@ -227,7 +212,6 @@
 
 
   <!-- particles.js lib - https://github.com/VincentGarreau/particles.js -->
-  <script src="vendor/particles/particles.min.js"></script>
   <script src="<?php echo get_template_directory_uri(); ?>/js/particles.min.js"></script>
 
   <script src="https://use.fontawesome.com/bb6bf5d06e.js"></script>
