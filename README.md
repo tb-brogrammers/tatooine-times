@@ -2,7 +2,7 @@
 
 Tatooine Times Wordpress Site Build
 
-* Project: [github.com/](https://github.com/)
+* Project: [tb-brogrammers/tatooine-times](https://github.com/tb-brogrammers/tatooine-times)
 * Website: [http://www.tatooinetimes.com)
 * Twitter: [@html5blank](https://twitter.com/tatooine_times)
 
